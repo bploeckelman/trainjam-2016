@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import lando.systems.trainjam2016.TrainJam2016;
 import lando.systems.trainjam2016.entities.Item;
 import lando.systems.trainjam2016.entities.ItemApple;
+import lando.systems.trainjam2016.entities.ItemSoup;
 import lando.systems.trainjam2016.utils.Assets;
 import lando.systems.trainjam2016.utils.Const;
 import lando.systems.trainjam2016.utils.Utils;
@@ -32,6 +33,10 @@ public class GameScreen extends BaseScreen {
 
         items = new Array<Item>();
         items.add(new ItemApple());
+        items.add(new ItemSoup());
+
+        items.get(1).moveTo(80, 80);
+        items.get(1).moveToCell();
 
         firstTouch = new Vector3();
         thisTouch = new Vector3();

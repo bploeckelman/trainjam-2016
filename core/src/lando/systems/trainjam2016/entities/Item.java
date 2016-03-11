@@ -85,7 +85,19 @@ public abstract class Item {
         float width  = texture.getRegionWidth();
         float height = texture.getRegionHeight();
         batch.draw(texture, pos.x, pos.y, width / 2f, height / 2f, width, height, 1f, 1f, angle);
+//        batch.draw(texture, pos.x, pos.y, 0, 0, width, height, 1f, 1f, angle);
+
         // TODO: draw grid shape as overlay
+        for (int y = 0; y < shape.length; ++y) {
+            for (int x = 0; x < shape[0].length; ++x) {
+                float minX = (cellX + x) * Const.cellSize;
+                float minY = (cellY + y) * Const.cellSize;
+                if (shape[y][x] == 1) batch.setColor(0f, 0.8f, 0f, 0.5f);
+                else                  batch.setColor(0.8f, 0f, 0f, 0.5f);
+                batch.draw(Assets.whitePixelTexture, minX, minY, Const.cellSize, Const.cellSize);
+            }
+        }
+        batch.setColor(1f, 1f, 1f, 1f);
     }
 
 }

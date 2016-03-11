@@ -34,8 +34,10 @@ public class Assets {
     public static Texture gridTexture;
 
     public static Texture appleTexture;
+    public static Texture soupTexture;
 
     public static TextureRegion apple;
+    public static TextureRegion soup;
     public static TextureRegion grid;
 
 
@@ -65,7 +67,9 @@ public class Assets {
         grid = new TextureRegion(gridTexture);
 
         appleTexture = new Texture("apple.png");
+        soupTexture = new Texture("soup.png");
         apple = new TextureRegion(appleTexture);
+        soup = new TextureRegion(soupTexture);
     }
 
     public static void dispose() {
@@ -76,6 +80,7 @@ public class Assets {
         whiteCircleTexture.dispose();
         appleTexture.dispose();
         gridTexture.dispose();
+        soupTexture.dispose();
     }
 
     private static ShaderProgram compileShaderProgram(FileHandle vertSource, FileHandle fragSource) {
