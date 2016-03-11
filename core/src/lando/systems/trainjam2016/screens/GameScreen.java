@@ -55,6 +55,11 @@ public class GameScreen extends BaseScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             TrainJam2016.game.screen = new MenuScreen();
         }
+
+        for (Item item : items) {
+            item.update(dt);
+        }
+        bag.update(dt);
     }
 
     @Override

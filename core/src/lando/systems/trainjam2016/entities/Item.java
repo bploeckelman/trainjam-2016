@@ -35,6 +35,8 @@ public abstract class Item {
     public abstract void rotateCCW();
     public abstract void rotateCW();
 
+    public void update(float dt) {}
+
     public void moveToCell() {
         Tween.to(pos, Vector2Accessor.XY, 0.1f)
              .target(cellX * Const.cellSize, cellY * Const.cellSize)

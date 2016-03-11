@@ -36,6 +36,11 @@ public class Bag extends Item {
         droppingItems = new Array<Item>();
     }
 
+    @Override
+    public void update(float dt) {
+        // TODO: progress dropped items until they are 'placed'
+    }
+
     public void dropItem(Item item) {
         // TODO: place on dropped item list
     }
