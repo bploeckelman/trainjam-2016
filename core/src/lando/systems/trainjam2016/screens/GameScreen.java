@@ -20,6 +20,7 @@ public class GameScreen extends BaseScreen {
     Array<Item> items;
 
     public GameScreen() {
+        super();
         Utils.glClearColor(Const.bgColor);
         Gdx.input.setInputProcessor(this);
 
@@ -31,6 +32,16 @@ public class GameScreen extends BaseScreen {
     public void update(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             TrainJam2016.game.screen = new MenuScreen();
+        }
+
+        if (Gdx.input.justTouched()) {
+            touchCoords.set(Gdx.input.getX(), Gdx.input.getY(), 0f);
+            camera.unproject(touchCoords);
+            for (Item item : items) {
+                if (item.isPointInside(touchCoords.x, touchCoords.y)) {
+                    item.rotateCCW();
+                }
+            }
         }
     }
 

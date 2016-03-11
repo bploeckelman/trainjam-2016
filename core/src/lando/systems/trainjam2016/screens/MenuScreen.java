@@ -20,6 +20,7 @@ public class MenuScreen extends BaseScreen {
     Color pulseColor;
 
     public MenuScreen() {
+        super();
         Utils.glClearColor(Color.FOREST);
         Gdx.input.setInputProcessor(this);
 

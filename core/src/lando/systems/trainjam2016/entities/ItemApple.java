@@ -8,8 +8,8 @@ import lando.systems.trainjam2016.utils.Assets;
  */
 public class ItemApple extends Item {
 
-    private static final int[] shape0 = new int[] {
-            1
+    private static final int[][] shape0 = new int[][] {
+            { 1 }
     };
 
     public ItemApple() {
