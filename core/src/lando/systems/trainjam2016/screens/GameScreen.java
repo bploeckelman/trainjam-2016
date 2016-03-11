@@ -99,10 +99,21 @@ public class GameScreen extends BaseScreen {
             else                          batch.setColor(1f, 1f, 1f, 1f);
             batch.draw(Assets.bagSmallTexture, rect.x, rect.y, rect.width, rect.height);
 
+            float meterX = rect.x + rect.width / 4f;
+            float meterY = rect.y + rect.height / 4f;
+            float meterW = rect.width / 2f;
+            float meterH = rect.height / 2f;
             Utils.hsvToRgb(capacity * 120f / 365f, 1f, 1f, capacityColor);
             batch.setColor(capacityColor);
-            batch.draw(Assets.whitePixelTexture, rect.x + rect.width / 4f, rect.y + rect.height / 4f, rect.width / 2f, rect.height / 2f * capacity + 0.2f);
+            batch.draw(Assets.whitePixelTexture, meterX, meterY, meterW, meterH * capacity + 0.2f);
             batch.setColor(1f, 1f, 1f, 1f);
+
+            int capPercent = (int) (capacity * 100f);
+            String capPercentStr = capPercent + "%";
+            Assets.glyphLayout.setText(Assets.font, capPercentStr);
+            float textW = Assets.glyphLayout.width;
+            float textH = Assets.glyphLayout.height;
+            Assets.font.draw(batch, capPercentStr, rect.x + rect.width / 2f - textW / 2f, rect.y + rect.height / 2f + textH / 2f);
         }
         activeBag.render(batch);
 
