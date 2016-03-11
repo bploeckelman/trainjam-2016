@@ -22,6 +22,7 @@ public class GameScreen extends BaseScreen {
 
     Array<Item> items;
     Item        selectedItem;
+    int         originalCellX, originalCellY;
     Vector3     firstTouch;
     Vector3     thisTouch;
     Vector2     dragDist;
@@ -78,6 +79,8 @@ public class GameScreen extends BaseScreen {
         for (Item item : items) {
             if (item.isPointInside(firstTouch.x, firstTouch.y)) {
                 selectedItem = item;
+                originalCellX = item.cellX;
+                originalCellY = item.cellY;
                 break;
             }
         }
@@ -96,7 +99,18 @@ public class GameScreen extends BaseScreen {
                 if      (button == 0) selectedItem.rotateCCW(); // left mouse
                 else if (button == 1) selectedItem.rotateCW();  // right mouse
             } else {
-                selectedItem.moveToCell();
+                boolean overlaps = false;
+                for (Item item : items) {
+                    if (item != selectedItem && selectedItem.overlaps(item)) {
+                        overlaps = true;
+                        break;
+                    }
+                }
+                if (overlaps) {
+                    selectedItem.moveToCell(originalCellX, originalCellY);
+                } else {
+                    selectedItem.moveToCell();
+                }
             }
 
             selectedItem = null;

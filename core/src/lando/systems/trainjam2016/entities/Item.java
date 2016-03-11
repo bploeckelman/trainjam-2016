@@ -15,7 +15,7 @@ import lando.systems.trainjam2016.utils.accessors.Vector2Accessor;
 public abstract class Item {
 
     Vector2       pos;
-    int           cellX, cellY;
+    public int    cellX, cellY;
     int           angle;
     int[][]       shape;
     TextureRegion texture;
@@ -39,6 +39,31 @@ public abstract class Item {
         Tween.to(pos, Vector2Accessor.XY, 0.1f)
              .target(cellX * Const.cellSize, cellY * Const.cellSize)
              .start(Assets.tween);
+    }
+
+    public void moveToCell(int newCellX, int newCellY) {
+        cellX = newCellX;
+        cellY = newCellY;
+        moveToCell();
+    }
+
+    public boolean overlaps (Item that) {
+        for (int iy = 0; iy < shape.length; ++iy) {
+            for (int ix = 0; ix < shape[0].length; ++ix) {
+                if (shape[iy][ix] != 0 && that.isCellInside(cellX + ix, cellY + iy)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isCellInside(int aCellX, int aCellY) {
+        int relX = aCellX - cellX;
+        int relY = aCellY - cellY;
+        return 0 <= relY && relY < shape.length
+            && 0 <= relX && relX < shape[0].length
+            && shape[relY][relX] != 0;
     }
 
     public boolean isPointInside(float pointX, float pointY) {
