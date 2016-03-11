@@ -31,10 +31,12 @@ public class Assets {
     public static Texture whitePixelTexture;
     public static Texture whiteCircleTexture;
     public static Texture testTexture;
+    public static Texture gridTexture;
 
     public static Texture appleTexture;
 
     public static TextureRegion apple;
+    public static TextureRegion grid;
 
 
     public static void load() {
@@ -58,8 +60,11 @@ public class Assets {
         testTexture = new Texture("badlogic.jpg");
         whitePixelTexture = new Texture("white-pixel.png");
         whiteCircleTexture = new Texture("white-circle.png");
-        appleTexture = new Texture("apple.png");
+        gridTexture = new Texture("grid.png");
+        gridTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        grid = new TextureRegion(gridTexture);
 
+        appleTexture = new Texture("apple.png");
         apple = new TextureRegion(appleTexture);
     }
 
@@ -70,6 +75,7 @@ public class Assets {
         whitePixelTexture.dispose();
         whiteCircleTexture.dispose();
         appleTexture.dispose();
+        gridTexture.dispose();
     }
 
     private static ShaderProgram compileShaderProgram(FileHandle vertSource, FileHandle fragSource) {

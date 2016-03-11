@@ -1,30 +1,41 @@
 package lando.systems.trainjam2016.entities;
 
-import com.badlogic.gdx.graphics.Texture;
+import aurelienribon.tweenengine.Tween;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import lando.systems.trainjam2016.utils.Assets;
 import lando.systems.trainjam2016.utils.Const;
+import lando.systems.trainjam2016.utils.accessors.Vector2Accessor;
 
 /**
  * Brian Ploeckelman created on 3/10/2016.
- * TODO: probably want to separate grid x,y (int) from render x,y (float) to enable smooth movement between grid cells
  */
 public abstract class Item {
 
-    int           x, y;
+    Vector2       pos;
+    int           cellX, cellY;
     int           angle;
     int[][]       shape;
     TextureRegion texture;
 
     public Item(TextureRegion texture) {
-        this.x       = 0;
-        this.y       = 0;
-        this.angle   = 0;
+        this.pos = new Vector2();
+        this.cellX = 0;
+        this.cellY = 0;
+        this.angle = 0;
         this.texture = texture;
     }
 
     public abstract void rotateCCW();
     public abstract void rotateCW();
+
+    public void moveToCell() {
+        Tween.to(pos, Vector2Accessor.XY, 0.1f)
+             .target(cellX * Const.cellSize, cellY * Const.cellSize)
+             .start(Assets.tween);
+    }
 
     public boolean isPointInside(float pointX, float pointY) {
         if (shape == null) return false;
@@ -34,8 +45,8 @@ public abstract class Item {
             for (int ix = 0; ix < shape[0].length; ++ix) {
                 if (shape[iy][ix] == 0) continue;
 
-                float minX = (x + ix) * Const.cellSize;
-                float minY = (y + iy) * Const.cellSize;
+                float minX = (cellX + ix) * Const.cellSize;
+                float minY = (cellY + iy) * Const.cellSize;
                 float maxX = minX + Const.cellSize;
                 float maxY = minY + Const.cellSize;
                 if (pointX >= minX && pointX <= maxX
@@ -47,23 +58,33 @@ public abstract class Item {
         return false;
     }
 
+    public void moveBy(float dx, float dy) {
+        pos.set(pos.x + dx, pos.y + dy);
+        cellX = MathUtils.round(pos.x / Const.cellSize);
+        cellY = MathUtils.round(pos.y / Const.cellSize);
+    }
+
     public void moveTo(int x, int y) {
-        this.x = x;
-        this.y = y;
+        pos.set(x - texture.getRegionWidth() / 2f,
+                y - texture.getRegionHeight() / 2f);
+        cellX = MathUtils.round(pos.x / Const.cellSize);
+        cellY = MathUtils.round(pos.y / Const.cellSize);
     }
 
     public void moveToX(int x) {
-        this.x = x;
+        pos.x = x - texture.getRegionWidth() / 2f;
+        cellX = MathUtils.round(pos.x / Const.cellSize);
     }
 
     public void moveToY(int y) {
-        this.y = y;
+        pos.y = y - texture.getRegionHeight() / 2f;
+        cellY = MathUtils.round(pos.y / Const.cellSize);
     }
 
     public void render(SpriteBatch batch) {
-        float width = texture.getRegionWidth();
+        float width  = texture.getRegionWidth();
         float height = texture.getRegionHeight();
-        batch.draw(texture, x, y, width / 2f, height / 2f, width, height, 1f, 1f, angle);
+        batch.draw(texture, pos.x, pos.y, width / 2f, height / 2f, width, height, 1f, 1f, angle);
         // TODO: draw grid shape as overlay
     }
 
