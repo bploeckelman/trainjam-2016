@@ -2,26 +2,33 @@ package lando.systems.trainjam2016;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import lando.systems.trainjam2016.screens.BaseScreen;
+import lando.systems.trainjam2016.screens.GameScreen;
 import lando.systems.trainjam2016.utils.Assets;
 
 public class TrainJam2016 extends ApplicationAdapter {
-	SpriteBatch batch;
+
+	public static TrainJam2016 game;
+	public        BaseScreen   screen;
 
 	@Override
-	public void create () {
+	public void create() {
 		Assets.load();
-		batch = Assets.batch;
+		game = this;
+		screen = new GameScreen();
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(0, 0, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(Assets.testTexture, 0, 0);
-		batch.end();
+	public void dispose() {
+		Assets.dispose();
 	}
+
+	@Override
+	public void render() {
+		float dt = Math.min(Gdx.graphics.getDeltaTime(), 1f / 30f);
+		Assets.tween.update(dt);
+		screen.update(dt);
+		screen.render(Assets.batch);
+	}
+
 }
