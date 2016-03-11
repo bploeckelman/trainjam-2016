@@ -14,15 +14,15 @@ import lando.systems.trainjam2016.utils.accessors.Vector2Accessor;
  */
 public abstract class Item {
 
-    Vector2       pos;
-    public int    cellX, cellY;
-    int           angle;
-    int[][]       shape;
-    TextureRegion texture;
-    int           offsetCellsX;
-    int           offsetCellsY;
-    float         originX;
-    float         originY;
+    public Vector2 pos;
+    public int     cellX, cellY;
+    int            angle;
+    int[][]        shape;
+    TextureRegion  texture;
+    int            offsetCellsX;
+    int            offsetCellsY;
+    float          originX;
+    float          originY;
 
     public Item(TextureRegion texture) {
         this.pos = new Vector2();
@@ -64,6 +64,18 @@ public abstract class Item {
         return 0 <= relY && relY < shape.length
             && 0 <= relX && relX < shape[0].length
             && shape[relY][relX] != 0;
+    }
+
+    public boolean isInsideCellRegion(int cellMinX, int cellMinY, int cellMaxX, int cellMaxY) {
+        for (int iy = 0; iy < shape.length; ++iy) {
+            for (int ix = 0; ix < shape[0].length; ++ix) {
+                if (shape[iy][ix] != 0
+                 && (cellX + ix < cellMinX || cellX + ix > cellMaxX || cellY + iy < cellMinY || cellY + iy > cellMaxY)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public boolean isPointInside(float pointX, float pointY) {
@@ -115,9 +127,7 @@ public abstract class Item {
         float height = texture.getRegionHeight();
 
         batch.draw(texture, pos.x + offsetCellsX * Const.cellSize, pos.y + offsetCellsY * Const.cellSize, originX, originY, width, height, 1f, 1f, angle);
-//        batch.draw(texture, pos.x, pos.y, 0, 0, width, height, 1f, 1f, angle);
 
-        // TODO: draw grid shape as overlay
         for (int y = 0; y < shape.length; ++y) {
             for (int x = 0; x < shape[0].length; ++x) {
                 float minX = (cellX + x) * Const.cellSize;
@@ -127,6 +137,15 @@ public abstract class Item {
                 batch.draw(Assets.whitePixelTexture, minX, minY, Const.cellSize, Const.cellSize);
             }
         }
+        batch.setColor(1f, 1f, 1f, 1f);
+    }
+
+    public void renderGhost(SpriteBatch batch, Vector2 origPos) {
+        float width  = texture.getRegionWidth();
+        float height = texture.getRegionHeight();
+
+        batch.setColor(1f, 1f, 1f, 0.5f);
+        batch.draw(texture, origPos.x + offsetCellsX * Const.cellSize, origPos.y + offsetCellsY * Const.cellSize, originX, originY, width, height, 1f, 1f, angle);
         batch.setColor(1f, 1f, 1f, 1f);
     }
 

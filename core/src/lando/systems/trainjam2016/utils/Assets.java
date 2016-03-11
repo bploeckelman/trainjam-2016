@@ -23,22 +23,24 @@ import lando.systems.trainjam2016.utils.accessors.*;
  */
 public class Assets {
 
-    public static TweenManager   tween;
-    public static GlyphLayout    glyphLayout;
-    public static SpriteBatch    batch;
-    public static BitmapFont     font;
+    public static TweenManager tween;
+    public static GlyphLayout  glyphLayout;
+    public static SpriteBatch  batch;
+    public static BitmapFont   font;
 
     public static Texture whitePixelTexture;
     public static Texture whiteCircleTexture;
     public static Texture testTexture;
     public static Texture gridTexture;
 
+    public static Texture bagTexture;
     public static Texture appleTexture;
     public static Texture soupTexture;
 
     public static TextureRegion apple;
     public static TextureRegion soup;
     public static TextureRegion grid;
+    public static TextureRegion bag;
 
 
     public static void load() {
@@ -66,8 +68,10 @@ public class Assets {
         gridTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         grid = new TextureRegion(gridTexture);
 
+        bagTexture = new Texture("bag.png");
         appleTexture = new Texture("apple.png");
         soupTexture = new Texture("soup.png");
+        bag = new TextureRegion(bagTexture);
         apple = new TextureRegion(appleTexture);
         soup = new TextureRegion(soupTexture);
     }
@@ -78,6 +82,7 @@ public class Assets {
         testTexture.dispose();
         whitePixelTexture.dispose();
         whiteCircleTexture.dispose();
+        bagTexture.dispose();
         appleTexture.dispose();
         gridTexture.dispose();
         soupTexture.dispose();

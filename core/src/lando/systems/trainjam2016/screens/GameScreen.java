@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import lando.systems.trainjam2016.TrainJam2016;
+import lando.systems.trainjam2016.entities.Bag;
 import lando.systems.trainjam2016.entities.Item;
 import lando.systems.trainjam2016.entities.ItemApple;
 import lando.systems.trainjam2016.entities.ItemSoup;
@@ -20,9 +21,11 @@ import lando.systems.trainjam2016.utils.Utils;
  */
 public class GameScreen extends BaseScreen {
 
+    Bag         bag;
     Array<Item> items;
     Item        selectedItem;
     int         originalCellX, originalCellY;
+    Vector2     selectedItemOrigPos;
     Vector3     firstTouch;
     Vector3     thisTouch;
     Vector2     dragDist;
@@ -32,6 +35,8 @@ public class GameScreen extends BaseScreen {
         Utils.glClearColor(Const.bgColor);
         Gdx.input.setInputProcessor(this);
 
+        bag = new Bag();
+
         items = new Array<Item>();
         items.add(new ItemApple());
         items.add(new ItemSoup());
@@ -39,6 +44,7 @@ public class GameScreen extends BaseScreen {
         items.get(1).moveTo(80, 80);
         items.get(1).moveToCell();
 
+        selectedItemOrigPos = new Vector2();
         firstTouch = new Vector3();
         thisTouch = new Vector3();
         dragDist = new Vector2();
@@ -61,8 +67,14 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        bag.render(batch);
+
         for (Item item : items) {
             item.render(batch);
+        }
+
+        if (selectedItem != null) {
+            selectedItem.renderGhost(batch, selectedItemOrigPos);
         }
         batch.end();
     }
@@ -81,6 +93,7 @@ public class GameScreen extends BaseScreen {
                 selectedItem = item;
                 originalCellX = item.cellX;
                 originalCellY = item.cellY;
+                selectedItemOrigPos.set(selectedItem.pos.x, selectedItem.pos.y);
                 break;
             }
         }
@@ -109,11 +122,18 @@ public class GameScreen extends BaseScreen {
                 if (overlaps) {
                     selectedItem.moveToCell(originalCellX, originalCellY);
                 } else {
-                    selectedItem.moveToCell();
+                    boolean placed = bag.placeItem(selectedItem);
+                    if (placed) {
+                        selectedItem.moveToCell();
+                        items.removeValue(selectedItem, true);
+                    } else {
+                        selectedItem.moveToCell(originalCellX, originalCellY);
+                    }
                 }
             }
 
             selectedItem = null;
+            selectedItemOrigPos.set(0, 0);
             firstTouch.set(0, 0, 0);
             dragDist.set(0, 0);
         }
