@@ -54,11 +54,26 @@ public class Bag extends Item {
         }
 
         placedItems.add(item);
+
+        // TODO: fill bag shape with item shape
+
         return true;
     }
 
     public boolean isInBag(Item item) {
         return item.isInsideCellRegion(minCellX, minCellY, maxCellX, maxCellY);
+    }
+
+    public float getCapacity() {
+        int numFilled = 0;
+        for (Item item : placedItems) {
+            for (int y = 0; y < item.shape.length; ++y) {
+                for (int x = 0; x < item.shape[0].length; ++x) {
+                    if (item.shape[y][x] != 0) numFilled++;
+                }
+            }
+        }
+        return numFilled / (float) (CELLS_WIDE * CELLS_HIGH);
     }
 
     @Override
