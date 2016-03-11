@@ -43,8 +43,8 @@ public class ItemEggs extends Item {
 
         offsetCellsX = 1;
         offsetCellsY = 2;
-        originX = Const.cellSize;
-        originY = Const.cellSize;
+        originX = 1.5f * Const.cellSize;
+        originY = Const.cellSize / 2f;
     }
 
     @Override
@@ -53,26 +53,10 @@ public class ItemEggs extends Item {
             angle = 0;
         }
 
-        if      (angle == 0) {
-            shape = shape0;
-            offsetCellsX = 1;
-            offsetCellsY = 2;
-        }
-        else if (angle == 90) {
-            shape = shape90;
-            offsetCellsX = 1;
-            offsetCellsY = 1;
-        }
-        else if (angle == 180) {
-            shape = shape180;
-            offsetCellsX = 2;
-            offsetCellsY = 1;
-        }
-        else if (angle == 270) {
-            shape = shape270;
-            offsetCellsX = 2;
-            offsetCellsY = 2;
-        }
+        if      (angle == 0)   shape = shape0;
+        else if (angle == 90)  shape = shape90;
+        else if (angle == 180) shape = shape180;
+        else if (angle == 270) shape = shape270;
     }
 
     @Override
@@ -81,26 +65,10 @@ public class ItemEggs extends Item {
             angle = 270;
         }
 
-        if      (angle == 0) {
-            shape = shape0;
-            offsetCellsX = 1;
-            offsetCellsY = 2;
-        }
-        else if (angle == 90) {
-            shape = shape90;
-            offsetCellsX = 1;
-            offsetCellsY = 1;
-        }
-        else if (angle == 180) {
-            shape = shape180;
-            offsetCellsX = 2;
-            offsetCellsY = 1;
-        }
-        else if (angle == 270) {
-            shape = shape270;
-            offsetCellsX = 2;
-            offsetCellsY = 2;
-        }
+        if      (angle == 0)   shape = shape0;
+        else if (angle == 90)  shape = shape90;
+        else if (angle == 180) shape = shape180;
+        else if (angle == 270) shape = shape270;
     }
 
 }

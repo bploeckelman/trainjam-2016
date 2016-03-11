@@ -96,7 +96,7 @@ public class GameScreen extends BaseScreen {
             }
         }
         activeBag.update(dt);
-        conveyor.update(dt);
+        conveyor.update(dt / 2f);
     }
 
     @Override
