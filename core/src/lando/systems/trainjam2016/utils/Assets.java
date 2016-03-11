@@ -47,7 +47,7 @@ public class Assets {
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        font.getData().setScale(1f);
+        font.getData().setScale(2f);
         font.getData().markupEnabled = true;
 
         testTexture = new Texture("badlogic.jpg");

@@ -3,7 +3,7 @@ package lando.systems.trainjam2016;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import lando.systems.trainjam2016.screens.BaseScreen;
-import lando.systems.trainjam2016.screens.GameScreen;
+import lando.systems.trainjam2016.screens.MenuScreen;
 import lando.systems.trainjam2016.utils.Assets;
 
 public class TrainJam2016 extends ApplicationAdapter {
@@ -15,7 +15,7 @@ public class TrainJam2016 extends ApplicationAdapter {
 	public void create() {
 		Assets.load();
 		game = this;
-		screen = new GameScreen();
+		screen = new MenuScreen();
 	}
 
 	@Override

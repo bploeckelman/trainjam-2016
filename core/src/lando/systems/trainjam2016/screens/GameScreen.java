@@ -2,9 +2,9 @@ package lando.systems.trainjam2016.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import lando.systems.trainjam2016.TrainJam2016;
 import lando.systems.trainjam2016.utils.Assets;
 import lando.systems.trainjam2016.utils.Const;
 import lando.systems.trainjam2016.utils.Utils;
@@ -12,7 +12,7 @@ import lando.systems.trainjam2016.utils.Utils;
 /**
  * Brian Ploeckelman created on 3/10/2016.
  */
-public class GameScreen extends BaseScreen implements InputProcessor {
+public class GameScreen extends BaseScreen {
 
     public GameScreen() {
         Utils.glClearColor(Const.bgColor);
@@ -22,7 +22,7 @@ public class GameScreen extends BaseScreen implements InputProcessor {
     @Override
     public void update(float dt) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
+            TrainJam2016.game.screen = new MenuScreen();
         }
     }
 
@@ -30,57 +30,10 @@ public class GameScreen extends BaseScreen implements InputProcessor {
     public void render(SpriteBatch batch) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(Assets.testTexture, 0, 0);
+        batch.draw(Assets.testTexture,
+                   camera.viewportWidth  / 2f - Assets.testTexture.getWidth()  / 2f,
+                   camera.viewportHeight / 2f - Assets.testTexture.getHeight() / 2f);
         batch.end();
     }
 
-    // ------------------------------------------------------------------------
-    // Private Implementation Methods
-    // ------------------------------------------------------------------------
-
-
-
-    // ------------------------------------------------------------------------
-    // InputProcessor Methods
-    // ------------------------------------------------------------------------
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
 }
