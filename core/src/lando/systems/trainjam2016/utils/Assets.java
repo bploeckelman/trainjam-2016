@@ -32,15 +32,16 @@ public class Assets {
     public static Texture whiteCircleTexture;
     public static Texture testTexture;
     public static Texture gridTexture;
-
     public static Texture bagTexture;
     public static Texture appleTexture;
     public static Texture soupTexture;
+    public static Texture conveyorTexture;
 
-    public static TextureRegion apple;
-    public static TextureRegion soup;
     public static TextureRegion grid;
     public static TextureRegion bag;
+    public static TextureRegion apple;
+    public static TextureRegion soup;
+    public static TextureRegion conveyor;
 
 
     public static void load() {
@@ -71,9 +72,11 @@ public class Assets {
         bagTexture = new Texture("bag.png");
         appleTexture = new Texture("apple.png");
         soupTexture = new Texture("soup.png");
+        conveyorTexture = new Texture("conveyor.png");
         bag = new TextureRegion(bagTexture);
         apple = new TextureRegion(appleTexture);
         soup = new TextureRegion(soupTexture);
+        conveyor = new TextureRegion(conveyorTexture);
     }
 
     public static void dispose() {
@@ -86,6 +89,7 @@ public class Assets {
         appleTexture.dispose();
         gridTexture.dispose();
         soupTexture.dispose();
+        conveyorTexture.dispose();
     }
 
     private static ShaderProgram compileShaderProgram(FileHandle vertSource, FileHandle fragSource) {

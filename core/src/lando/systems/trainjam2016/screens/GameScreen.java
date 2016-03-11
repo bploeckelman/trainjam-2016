@@ -9,10 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import lando.systems.trainjam2016.TrainJam2016;
-import lando.systems.trainjam2016.entities.Bag;
-import lando.systems.trainjam2016.entities.Item;
-import lando.systems.trainjam2016.entities.ItemApple;
-import lando.systems.trainjam2016.entities.ItemSoup;
+import lando.systems.trainjam2016.entities.*;
 import lando.systems.trainjam2016.utils.Assets;
 import lando.systems.trainjam2016.utils.Const;
 import lando.systems.trainjam2016.utils.Utils;
@@ -25,6 +22,7 @@ public class GameScreen extends BaseScreen {
     Bag         bag;
     Array<Item> items;
     Item        selectedItem;
+    Conveyor    conveyor;
     int         originalCellX, originalCellY;
     Vector2     selectedItemOrigPos;
     Vector3     firstTouch;
@@ -45,6 +43,8 @@ public class GameScreen extends BaseScreen {
         items.get(1).moveTo(80, 80);
         items.get(1).moveToCell();
 
+        conveyor = new Conveyor();
+
         selectedItemOrigPos = new Vector2();
         firstTouch = new Vector3();
         thisTouch = new Vector3();
@@ -61,6 +61,7 @@ public class GameScreen extends BaseScreen {
             item.update(dt);
         }
         bag.update(dt);
+        conveyor.update(dt);
     }
 
     @Override
@@ -73,6 +74,7 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        conveyor.render(batch);
         bag.render(batch);
 
         for (Item item : items) {
