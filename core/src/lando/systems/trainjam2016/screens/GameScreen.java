@@ -11,10 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import lando.systems.trainjam2016.TrainJam2016;
-import lando.systems.trainjam2016.entities.Bag;
-import lando.systems.trainjam2016.entities.Item;
-import lando.systems.trainjam2016.entities.ItemApple;
-import lando.systems.trainjam2016.entities.ItemSoup;
+import lando.systems.trainjam2016.entities.*;
 import lando.systems.trainjam2016.utils.Assets;
 import lando.systems.trainjam2016.utils.Const;
 import lando.systems.trainjam2016.utils.Utils;
@@ -31,12 +28,14 @@ public class GameScreen extends BaseScreen {
     Array<Rectangle> bagTouchRegions;
     Array<Item>      items;
     Item             selectedItem;
+    Conveyor         conveyor;
     int              originalCellX, originalCellY;
     Vector2          selectedItemOrigPos;
     Vector3          firstTouch;
     Vector3          thisTouch;
     Vector2          dragDist;
     Color            capacityColor;
+    float            currentTime;
 
     public GameScreen() {
         super();
@@ -60,8 +59,14 @@ public class GameScreen extends BaseScreen {
         activeBag = bags.first();
 
         items = new Array<Item>();
-        items.add(new ItemApple());
-        items.add(new ItemSoup());
+        Item apple = new ItemApple();
+        Item soup = new ItemSoup();
+        apple.setConveyorTime(0);
+        soup.setConveyorTime(-1);
+        items.add(apple);
+        items.add(soup);
+
+        conveyor = new Conveyor();
 
         selectedItemOrigPos = new Vector2();
         firstTouch = new Vector3();
@@ -72,14 +77,23 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void update(float dt) {
+        currentTime += dt;
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             TrainJam2016.game.screen = new MenuScreen();
         }
 
         for (Item item : items) {
             item.update(dt);
+            if (item != selectedItem && !activeBag.isInBag(item)) {
+                Vector2 conveyorPos = conveyor.getItemPosition(item);
+                if (conveyorPos != null) {
+                    item.moveCornerTo(conveyorPos.x, conveyorPos.y);
+                }
+            }
         }
         activeBag.update(dt);
+        conveyor.update(dt);
     }
 
     @Override
@@ -92,6 +106,7 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        conveyor.render(batch);
         for (int i = 0; i < NUM_BAGS; ++i) {
             float capacity = bags.get(i).getCapacity();
             Rectangle rect = bagTouchRegions.get(i);
@@ -122,7 +137,10 @@ public class GameScreen extends BaseScreen {
         }
 
         if (selectedItem != null) {
-            selectedItem.renderGhost(batch, selectedItemOrigPos);
+            Vector2 ghostPos = conveyor.getItemPosition(selectedItem);
+            if (ghostPos != null) {
+                selectedItem.renderGhost(batch, ghostPos);
+            }
         }
         batch.end();
     }
@@ -184,6 +202,7 @@ public class GameScreen extends BaseScreen {
                         items.removeValue(selectedItem, true);
 
                         Item newItem = Item.createNewRandomItem();
+                        newItem.setConveyorTime(currentTime);
                         newItem.moveToCell(MathUtils.random(1, 10), MathUtils.random(1, 10));
                         items.add(newItem);
                     } else {

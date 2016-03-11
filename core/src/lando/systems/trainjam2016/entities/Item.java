@@ -22,12 +22,13 @@ public abstract class Item {
     public Vector2 pos;
     public int     cellX, cellY;
     int            angle;
-    int[][]        shape;
+    public int[][] shape;
     TextureRegion  texture;
     int            offsetCellsX;
     int            offsetCellsY;
     float          originX;
     float          originY;
+    public float   conveyorTime;
 
     public Item(TextureRegion texture) {
         this.pos = new Vector2();
@@ -35,6 +36,10 @@ public abstract class Item {
         this.cellY = 0;
         this.angle = 0;
         this.texture = texture;
+    }
+
+    public void setConveyorTime(float t) {
+        conveyorTime = t;
     }
 
     public abstract void rotateCCW();
@@ -122,6 +127,12 @@ public abstract class Item {
         cellY = MathUtils.round(pos.y / Const.cellSize);
     }
 
+    public void moveCornerTo(float x, float y) {
+        pos.set(x, y);
+        cellX = MathUtils.round(pos.x / Const.cellSize);
+        cellY = MathUtils.round(pos.y / Const.cellSize);
+    }
+
     public void moveTo(int x, int y) {
         pos.set(x - (shape.length * Const.cellSize) / 2f,
                 y - (shape[0].length * Const.cellSize) / 2f);
@@ -147,11 +158,10 @@ public abstract class Item {
 
         for (int y = 0; y < shape.length; ++y) {
             for (int x = 0; x < shape[0].length; ++x) {
-                if (shape[y][x] != 1) continue;
+                if (shape[y][x] == 0) continue;
                 float minX = (cellX + x) * Const.cellSize;
                 float minY = (cellY + y) * Const.cellSize;
-                if (shape[y][x] == 1) batch.setColor(0f, 0.8f, 0f, 0.5f);
-                else                  batch.setColor(0.8f, 0f, 0f, 0.5f);
+                batch.setColor(0f, 0.8f, 0f, 0.5f);
                 batch.draw(Assets.whitePixelTexture, minX, minY, Const.cellSize, Const.cellSize);
             }
         }
