@@ -35,6 +35,7 @@ public class GameScreen extends BaseScreen {
     Vector3          thisTouch;
     Vector2          dragDist;
     Color            capacityColor;
+    float            currentTime;
 
     public GameScreen() {
         super();
@@ -58,8 +59,12 @@ public class GameScreen extends BaseScreen {
         activeBag = bags.first();
 
         items = new Array<Item>();
-        items.add(new ItemApple());
-        items.add(new ItemSoup());
+        Item apple = new ItemApple();
+        Item soup = new ItemSoup();
+        apple.setConveyorTime(0);
+        soup.setConveyorTime(-1);
+        items.add(apple);
+        items.add(soup);
 
         conveyor = new Conveyor();
 
@@ -72,12 +77,20 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void update(float dt) {
+        currentTime += dt;
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             TrainJam2016.game.screen = new MenuScreen();
         }
 
         for (Item item : items) {
             item.update(dt);
+            if (item != selectedItem && !activeBag.isInBag(item)) {
+                Vector2 conveyorPos = conveyor.getItemPosition(item);
+                if (conveyorPos != null) {
+                    item.moveCornerTo(conveyorPos.x, conveyorPos.y);
+                }
+            }
         }
         activeBag.update(dt);
         conveyor.update(dt);
@@ -113,7 +126,10 @@ public class GameScreen extends BaseScreen {
         }
 
         if (selectedItem != null) {
-            selectedItem.renderGhost(batch, selectedItemOrigPos);
+            Vector2 ghostPos = conveyor.getItemPosition(selectedItem);
+            if (ghostPos != null) {
+                selectedItem.renderGhost(batch, ghostPos);
+            }
         }
         batch.end();
     }
@@ -175,6 +191,7 @@ public class GameScreen extends BaseScreen {
                         items.removeValue(selectedItem, true);
 
                         Item newItem = Item.createNewRandomItem();
+                        newItem.setConveyorTime(currentTime);
                         newItem.moveToCell(MathUtils.random(1, 10), MathUtils.random(1, 10));
                         items.add(newItem);
                     } else {
