@@ -14,6 +14,11 @@ import lando.systems.trainjam2016.utils.accessors.Vector2Accessor;
  */
 public abstract class Item {
 
+    public static enum Type {
+        APPLE, SOUP;
+        public static int NUM_TYPES() { return 2; }
+    }
+
     public Vector2 pos;
     public int     cellX, cellY;
     int            angle;
@@ -36,6 +41,16 @@ public abstract class Item {
     public abstract void rotateCW();
 
     public void update(float dt) {}
+
+    public static Item createNewRandomItem() {
+        Item item;
+        switch (MathUtils.random(Type.NUM_TYPES() - 1)) {
+            default:
+            case 0: item = new ItemApple(); break;
+            case 1: item = new ItemSoup();  break;
+        }
+        return item;
+    }
 
     public void moveToCell() {
         Tween.to(pos, Vector2Accessor.XY, 0.1f)
@@ -132,6 +147,7 @@ public abstract class Item {
 
         for (int y = 0; y < shape.length; ++y) {
             for (int x = 0; x < shape[0].length; ++x) {
+                if (shape[y][x] != 1) continue;
                 float minX = (cellX + x) * Const.cellSize;
                 float minY = (cellY + y) * Const.cellSize;
                 if (shape[y][x] == 1) batch.setColor(0f, 0.8f, 0f, 0.5f);

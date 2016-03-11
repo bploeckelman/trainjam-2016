@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -131,6 +132,10 @@ public class GameScreen extends BaseScreen {
                     if (placed) {
                         selectedItem.moveToCell();
                         items.removeValue(selectedItem, true);
+
+                        Item newItem = Item.createNewRandomItem();
+                        newItem.moveToCell(MathUtils.random(1, 10), MathUtils.random(1, 10));
+                        items.add(newItem);
                     } else {
                         selectedItem.moveToCell(originalCellX, originalCellY);
                     }

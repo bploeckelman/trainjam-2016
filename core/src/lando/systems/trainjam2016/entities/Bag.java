@@ -1,7 +1,6 @@
 package lando.systems.trainjam2016.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.Array;
 import lando.systems.trainjam2016.utils.Assets;
 import lando.systems.trainjam2016.utils.Const;
