@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -30,6 +31,10 @@ public class Assets {
     public static Texture whitePixelTexture;
     public static Texture whiteCircleTexture;
     public static Texture testTexture;
+
+    public static Texture appleTexture;
+
+    public static TextureRegion apple;
 
 
     public static void load() {
@@ -53,6 +58,9 @@ public class Assets {
         testTexture = new Texture("badlogic.jpg");
         whitePixelTexture = new Texture("white-pixel.png");
         whiteCircleTexture = new Texture("white-circle.png");
+        appleTexture = new Texture("apple.png");
+
+        apple = new TextureRegion(appleTexture);
     }
 
     public static void dispose() {
@@ -61,6 +69,7 @@ public class Assets {
         testTexture.dispose();
         whitePixelTexture.dispose();
         whiteCircleTexture.dispose();
+        appleTexture.dispose();
     }
 
     private static ShaderProgram compileShaderProgram(FileHandle vertSource, FileHandle fragSource) {

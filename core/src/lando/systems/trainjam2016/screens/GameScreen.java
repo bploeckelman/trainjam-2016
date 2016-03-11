@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import lando.systems.trainjam2016.TrainJam2016;
+import lando.systems.trainjam2016.entities.Item;
+import lando.systems.trainjam2016.entities.ItemApple;
 import lando.systems.trainjam2016.utils.Assets;
 import lando.systems.trainjam2016.utils.Const;
 import lando.systems.trainjam2016.utils.Utils;
@@ -14,9 +17,14 @@ import lando.systems.trainjam2016.utils.Utils;
  */
 public class GameScreen extends BaseScreen {
 
+    Array<Item> items;
+
     public GameScreen() {
         Utils.glClearColor(Const.bgColor);
         Gdx.input.setInputProcessor(this);
+
+        items = new Array<Item>();
+        items.add(new ItemApple());
     }
 
     @Override
@@ -33,6 +41,9 @@ public class GameScreen extends BaseScreen {
         batch.draw(Assets.testTexture,
                    camera.viewportWidth  / 2f - Assets.testTexture.getWidth()  / 2f,
                    camera.viewportHeight / 2f - Assets.testTexture.getHeight() / 2f);
+        for (Item item : items) {
+            item.render(batch);
+        }
         batch.end();
     }
 
