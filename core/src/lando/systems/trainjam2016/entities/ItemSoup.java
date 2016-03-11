@@ -2,6 +2,7 @@ package lando.systems.trainjam2016.entities;
 
 import com.badlogic.gdx.Gdx;
 import lando.systems.trainjam2016.utils.Assets;
+import lando.systems.trainjam2016.utils.Const;
 
 /**
  * Brian Ploeckelman created on 3/11/2016.
@@ -18,30 +19,33 @@ public class ItemSoup extends Item {
 //    private static final int[][] shape180 = shape0;
 //    private static final int[][] shape270 = shape90;
     private static final int[][] shape0 = new int[][] {
-            { 0, 1, 0 },
-            { 0, 1, 0 },
-            { 0, 0, 0 }
+        { 0, 0, 0 },
+        { 0, 1, 0 },
+        { 0, 1, 0 }
     };
     private static final int[][] shape90 = new int[][] {
-            { 0, 0, 0 },
-            { 1, 1, 0 },
-            { 0, 0, 0 }
+        { 0, 0, 0 },
+        { 1, 1, 0 },
+        { 0, 0, 0 }
     };
     private static final int[][] shape180 = new int[][] {
-            { 0, 0, 0 },
-            { 0, 1, 0 },
-            { 0, 1, 0 }
+        { 0, 1, 0 },
+        { 0, 1, 0 },
+        { 0, 0, 0 }
     };
     private static final int[][] shape270 = new int[][] {
-            { 0, 0, 0 },
-            { 0, 1, 1 },
-            { 0, 0, 0 }
+        { 0, 0, 0 },
+        { 0, 1, 1 },
+        { 0, 0, 0 }
     };
 
 
     public ItemSoup() {
         super(Assets.soup);
         shape = shape0;
+
+        offsetCellsX = offsetCellsY = 1;
+        originX = originY = Const.cellSize / 2;
     }
 
     @Override

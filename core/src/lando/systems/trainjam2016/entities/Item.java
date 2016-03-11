@@ -19,6 +19,10 @@ public abstract class Item {
     int           angle;
     int[][]       shape;
     TextureRegion texture;
+    int           offsetCellsX;
+    int           offsetCellsY;
+    float         originX;
+    float         originY;
 
     public Item(TextureRegion texture) {
         this.pos = new Vector2();
@@ -65,26 +69,27 @@ public abstract class Item {
     }
 
     public void moveTo(int x, int y) {
-        pos.set(x - texture.getRegionWidth() / 2f,
-                y - texture.getRegionHeight() / 2f);
+        pos.set(x - (shape.length * Const.cellSize) / 2f,
+                y - (shape[0].length * Const.cellSize) / 2f);
         cellX = MathUtils.round(pos.x / Const.cellSize);
         cellY = MathUtils.round(pos.y / Const.cellSize);
     }
 
     public void moveToX(int x) {
-        pos.x = x - texture.getRegionWidth() / 2f;
+        pos.x = x - (shape.length * Const.cellSize) / 2f;
         cellX = MathUtils.round(pos.x / Const.cellSize);
     }
 
     public void moveToY(int y) {
-        pos.y = y - texture.getRegionHeight() / 2f;
+        pos.y = y - (shape[0].length * Const.cellSize) / 2f;
         cellY = MathUtils.round(pos.y / Const.cellSize);
     }
 
     public void render(SpriteBatch batch) {
         float width  = texture.getRegionWidth();
         float height = texture.getRegionHeight();
-        batch.draw(texture, pos.x, pos.y, width / 2f, height / 2f, width, height, 1f, 1f, angle);
+
+        batch.draw(texture, pos.x + offsetCellsX * Const.cellSize, pos.y + offsetCellsY * Const.cellSize, originX, originY, width, height, 1f, 1f, angle);
 //        batch.draw(texture, pos.x, pos.y, 0, 0, width, height, 1f, 1f, angle);
 
         // TODO: draw grid shape as overlay
