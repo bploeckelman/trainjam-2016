@@ -1,6 +1,5 @@
 package lando.systems.trainjam2016.entities;
 
-import com.badlogic.gdx.Gdx;
 import lando.systems.trainjam2016.utils.Assets;
 import lando.systems.trainjam2016.utils.Const;
 
@@ -9,15 +8,6 @@ import lando.systems.trainjam2016.utils.Const;
  */
 public class ItemSoup extends Item {
 
-//    private static final int[][] shape0 = new int[][] {
-//            { 1 },
-//            { 1 }
-//    };
-//    private static final int[][] shape90 = new int[][] {
-//            { 1, 1 }
-//    };
-//    private static final int[][] shape180 = shape0;
-//    private static final int[][] shape270 = shape90;
     private static final int[][] shape0 = new int[][] {
         { 0, 0, 0 },
         { 0, 1, 0 },

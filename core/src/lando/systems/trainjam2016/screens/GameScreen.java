@@ -61,10 +61,13 @@ public class GameScreen extends BaseScreen {
         items = new Array<Item>();
         Item apple = new ItemApple();
         Item soup = new ItemSoup();
+        Item eggs = new ItemEggs();
         apple.setConveyorTime(0);
         soup.setConveyorTime(-1);
+        eggs.setConveyorTime(-2);
         items.add(apple);
         items.add(soup);
+        items.add(eggs);
 
         conveyor = new Conveyor();
 
