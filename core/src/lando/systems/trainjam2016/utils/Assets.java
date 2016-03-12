@@ -50,6 +50,7 @@ public class Assets {
     public static Texture bananasTexture;
     public static Texture bowlTexture;
     public static Texture conveyorTexture;
+    public static Texture titleTexture;
 
     public static TextureRegion grid;
     public static TextureRegion bag;
@@ -66,6 +67,7 @@ public class Assets {
     public static TextureRegion grapes;
     public static TextureRegion bananas;
     public static TextureRegion bowl;
+    public static TextureRegion title;
 
     public static Music music;
     public static Sound rotateCCW;
@@ -120,6 +122,7 @@ public class Assets {
         bananasTexture = new Texture("bananas.png");
         bowlTexture = new Texture("bowl.png");
         conveyorTexture = new Texture("conveyor.png");
+        titleTexture = new Texture("title.png");
         conveyor = new TextureRegion(conveyorTexture);
         bag = new TextureRegion(bagTexture);
         apple = new TextureRegion(appleTexture);
@@ -137,6 +140,7 @@ public class Assets {
         grapes = new TextureRegion(grapesTexture);
         bananas = new TextureRegion(bananasTexture);
         bowl = new TextureRegion(bowlTexture);
+        title = new TextureRegion(titleTexture);
 
         music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
         music.setLooping(true);
@@ -177,6 +181,7 @@ public class Assets {
         bananasTexture.dispose();
         bowlTexture.dispose();
         conveyorTexture.dispose();
+        titleTexture.dispose();
         music.stop();
         rotateCCW.dispose();
         rotateCW.dispose();
