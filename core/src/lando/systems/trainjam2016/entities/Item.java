@@ -189,19 +189,23 @@ public abstract class Item {
         cellY = MathUtils.round(pos.y / Const.cellSize);
     }
 
-    public void render(SpriteBatch batch, boolean canPlaceInBag) {
+    public void render(SpriteBatch batch, boolean isOverBag, boolean canPlaceInBag) {
         float width  = texture.getRegionWidth();
         float height = texture.getRegionHeight();
 
         batch.draw(texture, pos.x + offsetCellsX * Const.cellSize, pos.y + offsetCellsY * Const.cellSize, originX, originY, width, height, 1f, 1f, angle);
 
-        if (canPlaceInBag) {
+        if (isOverBag) {
             for (int y = 0; y < shape.length; ++y) {
                 for (int x = 0; x < shape[0].length; ++x) {
                     if (shape[y][x] == 0) continue;
                     float minX = (cellX + x) * Const.cellSize;
                     float minY = (cellY + y) * Const.cellSize;
-                    batch.setColor(0f, 0.8f, 0f, 0.5f);
+                    if (canPlaceInBag) {
+                        batch.setColor(0f, 0.8f, 0f, 0.3f);
+                    } else {
+                        batch.setColor(0.8f, 0f, 0f, 0.3f);
+                    }
                     batch.draw(Assets.whitePixelTexture, minX, minY, Const.cellSize, Const.cellSize);
                 }
             }

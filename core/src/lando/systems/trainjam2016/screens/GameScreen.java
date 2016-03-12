@@ -129,7 +129,7 @@ public class GameScreen extends BaseScreen {
 //            }
 //        }
 
-        conveyor.render(batch, false);
+        conveyor.render(batch, false, false);
         for (int i = 0; i < NUM_BAGS; ++i) {
             float capacity = bags.get(i).getCapacity();
             Rectangle rect = bagTouchRegions.get(i);
@@ -153,7 +153,7 @@ public class GameScreen extends BaseScreen {
             float textH = Assets.glyphLayout.height;
             Assets.font.draw(batch, capPercentStr, rect.x + rect.width / 2f - textW / 2f, rect.y + rect.height / 2f + textH / 2f);
         }
-        activeBag.render(batch, false);
+        activeBag.render(batch, false, false);
 
         String doneCaps = "";
         for (int i = 0; i < doneBags.size; i++) {
@@ -167,7 +167,7 @@ public class GameScreen extends BaseScreen {
         Assets.font.draw(batch, doneCaps, 16, 797);
 
         for (Item item : items) {
-            item.render(batch, activeBag.isInBag(item));
+            item.render(batch, activeBag.isInBag(item), activeBag.canDropItem(item));
         }
 
         if (selectedItem != null) {
