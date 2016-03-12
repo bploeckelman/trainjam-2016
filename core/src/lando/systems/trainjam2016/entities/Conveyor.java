@@ -1,5 +1,6 @@
 package lando.systems.trainjam2016.entities;
 
+import aurelienribon.tweenengine.primitives.MutableFloat;
 import lando.systems.trainjam2016.utils.Assets;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.trainjam2016.utils.Const;
@@ -8,7 +9,8 @@ import lando.systems.trainjam2016.utils.Const;
  * Created by mtolly on 3/11/16.
  */
 public class Conveyor extends Item {
-    float currentTime;
+    float        currentTime;
+    MutableFloat travelTime;
 
     public Conveyor() {
         super(Assets.conveyor);
@@ -17,6 +19,9 @@ public class Conveyor extends Item {
         pos.set(0, 0);
         shape = new int[][] {};
         currentTime = 0f;
+
+        // Time required for an item to traverse the entire conveyor
+        travelTime = new MutableFloat(30f);
     }
 
     public Vector2 getItemPosition(Item item) {
@@ -30,11 +35,10 @@ public class Conveyor extends Item {
         // (820,660)
         // (820,560)
 
-        float totalTime = 100f;
         float totalDistance = 660f + 760f + 100f;
-        float leg1 = (660f / totalDistance) * totalTime;
-        float leg2 = (760f / totalDistance) * totalTime;
-        float leg3 = (100f / totalDistance) * totalTime;
+        float leg1 = (660f / totalDistance) * travelTime.floatValue();
+        float leg2 = (760f / totalDistance) * travelTime.floatValue();
+        float leg3 = (100f / totalDistance) * travelTime.floatValue();
         Vector2 ret;
         if (age < leg1) {
             ret = new Vector2(60f + dx, (age / leg1) * 660f + dy);
