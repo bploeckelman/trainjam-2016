@@ -72,6 +72,12 @@ public class Bag extends Item {
         return true;
     }
 
+    public boolean cramItem(Item item) {
+        item.moveToCell();
+        while (item.canMoveDown(this)) item.moveToCell(item.cellX, item.cellY - 1);
+        return dropItem(item);
+    }
+
     public boolean isInBag(Item item) {
         return item.isInsideCellRegion(minCellX, minCellY, maxCellX, maxCellY);
     }
@@ -89,13 +95,13 @@ public class Bag extends Item {
     }
 
     @Override
-    public void render(SpriteBatch batch) {
+    public void render(SpriteBatch batch, boolean canPlaceInBag) {
         batch.draw(texture, pos.x, pos.y);
         for (Item item : placedItems) {
-            item.render(batch);
+            item.render(batch, false);
         }
         for (Item item : droppingItems) {
-            item.render(batch);
+            item.render(batch, false);
         }
     }
 
