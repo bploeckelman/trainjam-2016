@@ -30,7 +30,7 @@ public class Conveyor extends Item {
         // (820,660)
         // (820,560)
 
-        float totalTime = 10f;
+        float totalTime = 100f;
         float totalDistance = 660f + 760f + 100f;
         float leg1 = (660f / totalDistance) * totalTime;
         float leg2 = (760f / totalDistance) * totalTime;

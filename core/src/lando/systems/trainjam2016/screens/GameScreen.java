@@ -59,15 +59,18 @@ public class GameScreen extends BaseScreen {
         activeBag = bags.first();
 
         items = new Array<Item>();
-        Item apple = new ItemApple();
-        Item soup = new ItemSoup();
-        Item eggs = new ItemEggs();
-        apple.setConveyorTime(0);
-        soup.setConveyorTime(-1);
-        eggs.setConveyorTime(-2);
-        items.add(apple);
-        items.add(soup);
-        items.add(eggs);
+//        Item apple = new ItemApple();
+//        Item soup = new ItemSoup();
+//        Item eggs = new ItemEggs();
+        Item bread = new ItemBread();
+//        apple.setConveyorTime(0);
+//        soup.setConveyorTime(-1);
+//        eggs.setConveyorTime(-2);
+        bread.setConveyorTime(0);
+//        items.add(apple);
+//        items.add(soup);
+//        items.add(eggs);
+        items.add(bread);
 
         conveyor = new Conveyor();
 
@@ -96,7 +99,7 @@ public class GameScreen extends BaseScreen {
             }
         }
         activeBag.update(dt);
-        conveyor.update(dt / 2f);
+        conveyor.update(dt);
     }
 
     @Override
