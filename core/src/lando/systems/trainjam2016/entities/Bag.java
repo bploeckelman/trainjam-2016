@@ -51,7 +51,7 @@ public class Bag extends Item {
         // TODO: progress dropped items until they are 'placed'
     }
 
-    public boolean dropItem(Item item) {
+    public boolean canDropItem(Item item) {
         if (!isInBag(item)) return false;
 
         for (Item placedItem : placedItems) {
@@ -65,10 +65,13 @@ public class Bag extends Item {
             }
         }
 
+        return true;
+    }
+
+    public boolean dropItem(Item item) {
+        if (!canDropItem(item)) return false;
         droppingItems.add(item);
-
         // TODO: fill bag shape with item shape
-
         return true;
     }
 
@@ -95,13 +98,13 @@ public class Bag extends Item {
     }
 
     @Override
-    public void render(SpriteBatch batch, boolean canPlaceInBag) {
+    public void render(SpriteBatch batch, boolean isOverBag, boolean canPlaceInBag) {
         batch.draw(texture, pos.x, pos.y);
         for (Item item : placedItems) {
-            item.render(batch, false);
+            item.render(batch, true, true);
         }
         for (Item item : droppingItems) {
-            item.render(batch, false);
+            item.render(batch, true, true);
         }
     }
 
