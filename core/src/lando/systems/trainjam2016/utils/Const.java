@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
  * Brian Ploeckelman created on 3/10/2016.
  */
 public class Const {
-    public static final String  title     = "Grocery Bagging Simulator 2016";
+    public static final String  title     = "In the Bag";
     public static final int     width     = 1200;
     public static final int     height    = 800;
     public static final boolean resizable = false;
