@@ -32,23 +32,27 @@ public class Conveyor extends Item {
         float dx = -(item.shape[0].length * Const.cellSize) / 2f;
         float dy = -(item.shape.length * Const.cellSize) / 2f;
 
-        // moves the center of an item between these points over 10 seconds:
-        // (60,0)
-        // (60,660)
-        // (820,660)
-        // (820,560)
+        // moves the center of an item between these points:
+        // (0,195)
+        // (395,195)
+        // (395,720)
+        // (825,720)
+        // (825,550)
 
-        float totalDistance = 660f + 760f + 100f;
-        float leg1 = (660f / totalDistance) * travelTime.floatValue();
-        float leg2 = (760f / totalDistance) * travelTime.floatValue();
-        float leg3 = (100f / totalDistance) * travelTime.floatValue();
+        float totalDistance = 395f + 525f + 430f + 170f;
+        float leg1 = (395f / totalDistance) * travelTime.floatValue();
+        float leg2 = (525f / totalDistance) * travelTime.floatValue();
+        float leg3 = (430f / totalDistance) * travelTime.floatValue();
+        float leg4 = (170f / totalDistance) * travelTime.floatValue();
         Vector2 ret;
         if (age < leg1) {
-            ret = new Vector2(60f + dx, (age / leg1) * 660f + dy);
+            ret = new Vector2((age / leg1) * 395f + dx, 195f + dy);
         } else if (age < leg1 + leg2) {
-            ret = new Vector2(60f + ((age - leg1) / leg2) * 760f + dx, 660f + dy);
+            ret = new Vector2(395f + dx, 195f + ((age - leg1) / leg2) * 525f + dy);
         } else if (age < leg1 + leg2 + leg3) {
-            ret = new Vector2(820f + dx, 660f - ((age - leg1 - leg2) / leg3) * 100f + dy);
+            ret = new Vector2(395f + ((age - leg1 - leg2) / leg3) * 430f + dx, 720f + dy);
+        } else if (age < leg1 + leg2 + leg3 + leg4) {
+            ret = new Vector2(825f + dx, 720f - ((age - leg1 - leg2 - leg3) / leg4) * 170f + dy);
         } else {
             ret = null;
         }

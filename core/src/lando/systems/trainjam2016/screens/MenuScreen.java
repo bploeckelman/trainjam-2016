@@ -59,25 +59,8 @@ public class MenuScreen extends BaseScreen {
     @Override
     public void render(SpriteBatch batch) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        Assets.glyphLayout.setText(Assets.font, Const.title);
-        float titleTextWidth  = Assets.glyphLayout.width;
-        float titleTextHeight = Assets.glyphLayout.height;
-
-        String clickText = "Click to play!";
-        Assets.glyphLayout.setText(Assets.font, clickText);
-        float clickTextWidth  = Assets.glyphLayout.width;
-        float clickTextHeight = Assets.glyphLayout.height;
-
         batch.begin();
-        Assets.font.draw(batch, Const.title,
-                         camera.viewportWidth  / 2f - titleTextWidth  / 2f,
-                         camera.viewportHeight / 2f + 2f * titleTextHeight);
-        Assets.font.setColor(pulseColor);
-        Assets.font.draw(batch, clickText,
-                         camera.viewportWidth  / 2f - clickTextWidth  / 2f,
-                         camera.viewportHeight / 2f - clickTextHeight);
-        Assets.font.setColor(Color.WHITE);
+        batch.draw(Assets.titleTexture, 0, 0, 1200, 800);
         batch.end();
     }
 

@@ -38,6 +38,7 @@ public class GameScreen extends BaseScreen {
     Vector2          dragDist;
     Color            capacityColor;
     float            currentTime;
+    float            timeOfNextItem;
     boolean          gameOver;
     GameOverOverlay  gameOverOverlay;
 
@@ -67,9 +68,8 @@ public class GameScreen extends BaseScreen {
         doneBags = new Array<Bag>();
 
         items = new Array<Item>();
-        Item bowl = new ItemBowl();
-        bowl.setConveyorTime(2);
-        items.add(bowl);
+        currentTime = 0;
+        timeOfNextItem = 0;
 
         conveyor = new Conveyor();
 
@@ -115,9 +115,9 @@ public class GameScreen extends BaseScreen {
         if (gameOver) return;
 
         // Just for the testings
-//        if (Gdx.input.justTouched()) {
-//            replaceBag(activeBag);
-//        }
+        if (Gdx.input.justTouched()) {
+            replaceBag(activeBag);
+        }
 
         for (int i = 0; i < NUM_BAGS; i++) {
             Bag bag = bags.get(i);
@@ -143,6 +143,14 @@ public class GameScreen extends BaseScreen {
         }
         activeBag.update(dt);
         conveyor.update(dt);
+
+        if (timeOfNextItem <= currentTime) {
+            Item newItem = Item.createNewRandomItem();
+            newItem.setConveyorTime(currentTime + 1);
+            newItem.moveTo(-200, -200);
+            items.add(newItem);
+            timeOfNextItem = currentTime + 4;
+        }
     }
 
     @Override
@@ -265,11 +273,6 @@ public class GameScreen extends BaseScreen {
                         Assets.place.play(Const.volume * 2f);
                         selectedItem.moveToCell();
                         items.removeValue(selectedItem, true);
-
-                        Item newItem = Item.createNewRandomItem();
-                        newItem.setConveyorTime(currentTime);
-                        newItem.moveToCell(MathUtils.random(1, 10), MathUtils.random(1, 10));
-                        items.add(newItem);
                     } else {
                         Assets.drop.play(Const.volume * 2f);
                         selectedItem.moveToCell(originalCellX, originalCellY);
