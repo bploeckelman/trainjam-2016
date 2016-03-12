@@ -155,6 +155,17 @@ public class GameScreen extends BaseScreen {
         }
         activeBag.render(batch, false);
 
+        String doneCaps = "";
+        for (int i = 0; i < doneBags.size; i++) {
+            float capacity = doneBags.get(i).getCapacity();
+            int capPercent = (int) (capacity * 100f);
+            doneCaps += capPercent + "% ";
+        }
+        Assets.glyphLayout.setText(Assets.font, doneCaps);
+        float textW = Assets.glyphLayout.width;
+        float textH = Assets.glyphLayout.height;
+        Assets.font.draw(batch, doneCaps, 16, 797);
+
         for (Item item : items) {
             item.render(batch, activeBag.isInBag(item));
         }
