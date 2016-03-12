@@ -39,6 +39,7 @@ public class Assets {
     public static Texture eggsTexture;
     public static Texture breadTexture;
     public static Texture melonTexture;
+    public static Texture yamTexture;
     public static Texture conveyorTexture;
 
     public static TextureRegion grid;
@@ -49,6 +50,7 @@ public class Assets {
     public static TextureRegion eggs;
     public static TextureRegion bread;
     public static TextureRegion melon;
+    public static TextureRegion yam;
 
     public static void load() {
         if (tween == null) {
@@ -82,6 +84,7 @@ public class Assets {
         eggsTexture = new Texture("eggs.png");
         breadTexture = new Texture("bread.png");
         melonTexture = new Texture("melon.png");
+        yamTexture = new Texture("yam.png");
         conveyorTexture = new Texture("conveyor.png");
         conveyor = new TextureRegion(conveyorTexture);
         bag = new TextureRegion(bagTexture);
@@ -93,6 +96,7 @@ public class Assets {
         eggs = new TextureRegion(eggsTexture);
         bread = new TextureRegion(breadTexture);
         melon = new TextureRegion(melonTexture);
+        yam = new TextureRegion(yamTexture);
     }
 
     public static void dispose() {
@@ -109,6 +113,7 @@ public class Assets {
         eggsTexture.dispose();
         breadTexture.dispose();
         melonTexture.dispose();
+        yamTexture.dispose();
         conveyorTexture.dispose();
     }
 
