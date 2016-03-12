@@ -96,6 +96,7 @@ public class Bag extends Item {
 
     @Override
     public void render(SpriteBatch batch, boolean canPlaceInBag) {
+        batch.draw(Assets.bagGridTexture, pos.x + Const.cellSize, pos.y + Const.cellSize);
         batch.draw(texture, pos.x, pos.y);
         for (Item item : placedItems) {
             item.render(batch, false);

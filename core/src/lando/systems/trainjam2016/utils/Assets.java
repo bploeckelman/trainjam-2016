@@ -34,6 +34,7 @@ public class Assets {
     public static Texture gridTexture;
     public static Texture bagTexture;
     public static Texture bagSmallTexture;
+    public static Texture bagGridTexture;
     public static Texture appleTexture;
     public static Texture soupTexture;
     public static Texture eggsTexture;
@@ -91,6 +92,7 @@ public class Assets {
 
         bagTexture = new Texture("bag.png");
         bagSmallTexture = new Texture("bag-small.png");
+        bagGridTexture = new Texture("bag-grid.png");
         appleTexture = new Texture("apple.png");
         soupTexture = new Texture("soup.png");
         eggsTexture = new Texture("eggs.png");
@@ -130,7 +132,7 @@ public class Assets {
         whitePixelTexture.dispose();
         whiteCircleTexture.dispose();
         bagTexture.dispose();
-        bagSmallTexture.dispose();
+        bagGridTexture.dispose();
         appleTexture.dispose();
         gridTexture.dispose();
         soupTexture.dispose();

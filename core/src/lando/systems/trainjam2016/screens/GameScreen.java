@@ -123,11 +123,11 @@ public class GameScreen extends BaseScreen {
     public void render(SpriteBatch batch) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        for (int y = 0; y < camera.viewportHeight; y += Const.cellSize) {
-            for (int x = 0; x < camera.viewportWidth; x += Const.cellSize) {
-                batch.draw(Assets.grid, x, y, Const.cellSize, Const.cellSize);
-            }
-        }
+//        for (int y = 0; y < camera.viewportHeight; y += Const.cellSize) {
+//            for (int x = 0; x < camera.viewportWidth; x += Const.cellSize) {
+//                batch.draw(Assets.grid, x, y, Const.cellSize, Const.cellSize);
+//            }
+//        }
 
         conveyor.render(batch, false);
         for (int i = 0; i < NUM_BAGS; ++i) {
