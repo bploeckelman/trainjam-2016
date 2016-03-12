@@ -1,5 +1,6 @@
 package lando.systems.trainjam2016.entities;
 
+import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.primitives.MutableFloat;
 import lando.systems.trainjam2016.utils.Assets;
 import com.badlogic.gdx.math.Vector2;
@@ -9,6 +10,7 @@ import lando.systems.trainjam2016.utils.Const;
  * Created by mtolly on 3/11/16.
  */
 public class Conveyor extends Item {
+    static final float startTravelTime = 20f;
     float        currentTime;
     MutableFloat travelTime;
 
@@ -21,7 +23,7 @@ public class Conveyor extends Item {
         currentTime = 0f;
 
         // Time required for an item to traverse the entire conveyor
-        travelTime = new MutableFloat(30f);
+        travelTime = new MutableFloat(startTravelTime);
         Assets.conveyorLoop.loop(0.5f);
     }
 
@@ -62,4 +64,19 @@ public class Conveyor extends Item {
 
     @Override
     public void rotateCW() {}
+
+    public void speedUp() {
+        final float numBags = 10f;
+        final float minTime = 2f;
+        final float speedUpAmount =  (startTravelTime - minTime) / numBags;
+        final float currentTravelTime = travelTime.floatValue();
+        float newTravelTime = currentTravelTime - speedUpAmount;
+        if (newTravelTime < minTime) {
+            newTravelTime = minTime;
+        }
+
+        Tween.to(travelTime, -1, 1f)
+                .target(newTravelTime)
+                .start(Assets.tween);
+    }
 }

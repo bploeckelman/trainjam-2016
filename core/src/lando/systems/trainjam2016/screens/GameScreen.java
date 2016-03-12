@@ -86,6 +86,7 @@ public class GameScreen extends BaseScreen {
                     Assets.bagSwitch.play(Const.volume * 3f);
                 }
                 bags.set(i, newBag);
+                conveyor.speedUp();
             }
         }
     }
