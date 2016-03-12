@@ -62,8 +62,8 @@ public abstract class Item {
         conveyorTime = t;
     }
 
-    public abstract void rotateCCW();
-    public abstract void rotateCW();
+    public void rotateCCW() { Assets.rotateCCW.play(Const.volume); };
+    public void rotateCW()  { Assets.rotateCW.play(Const.volume); };
 
     public void update(float dt) {}
 

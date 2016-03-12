@@ -194,6 +194,7 @@ public class GameScreen extends BaseScreen {
                 originalCellX = item.cellX;
                 originalCellY = item.cellY;
                 selectedItemOrigPos.set(selectedItem.pos.x, selectedItem.pos.y);
+                Assets.pickup.play(Const.volume * 2f);
                 break;
             }
         }
@@ -202,6 +203,8 @@ public class GameScreen extends BaseScreen {
             Rectangle rect = bagTouchRegions.get(i);
             if (rect.contains(firstTouch.x, firstTouch.y)) {
                 activeBag = bags.get(i);
+                Assets.bagSwitch.play(Const.volume * 2f);
+                break;
             }
         }
 
@@ -228,10 +231,12 @@ public class GameScreen extends BaseScreen {
                     }
                 }
                 if (overlaps) {
+                    Assets.drop.play(Const.volume * 2f);
                     selectedItem.moveToCell(originalCellX, originalCellY);
                 } else {
                     boolean placed = activeBag.dropItem(selectedItem);
                     if (placed) {
+                        Assets.place.play(Const.volume * 2f);
                         selectedItem.moveToCell();
                         items.removeValue(selectedItem, true);
 
@@ -240,6 +245,7 @@ public class GameScreen extends BaseScreen {
                         newItem.moveToCell(MathUtils.random(1, 10), MathUtils.random(1, 10));
                         items.add(newItem);
                     } else {
+                        Assets.drop.play(Const.volume * 2f);
                         selectedItem.moveToCell(originalCellX, originalCellY);
                     }
                 }

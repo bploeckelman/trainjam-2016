@@ -22,6 +22,7 @@ public class ItemMelon extends Item {
     }
     @Override
     public void rotateCCW() {
+        super.rotateCCW();
         if ((angle += 90) > 270) {
             angle = 0;
         }
@@ -29,6 +30,7 @@ public class ItemMelon extends Item {
 
     @Override
     public void rotateCW() {
+        super.rotateCW();
         if ((angle -= 90) < 0) {
             angle = 270;
         }

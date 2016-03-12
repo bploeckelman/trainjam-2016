@@ -22,6 +22,7 @@ public class Conveyor extends Item {
 
         // Time required for an item to traverse the entire conveyor
         travelTime = new MutableFloat(30f);
+        Assets.conveyorLoop.loop(0.5f);
     }
 
     public Vector2 getItemPosition(Item item) {

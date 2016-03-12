@@ -15,4 +15,5 @@ public class Const {
     public static final int     cellsWide = width / (int) cellSize;
     public static final int     cellsHigh = height / (int) cellSize;
     public static final float   dragEpsilon = cellSize / 2f;
+    public static final float   volume = 0.1f;
 }

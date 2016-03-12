@@ -1,6 +1,9 @@
 package lando.systems.trainjam2016.screens;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -17,18 +20,20 @@ import lando.systems.trainjam2016.utils.accessors.ColorAccessor;
  */
 public class MenuScreen extends BaseScreen {
 
-    Color pulseColor;
+    MutableFloat delay;
+    Color        pulseColor;
 
     public MenuScreen() {
         super();
         Utils.glClearColor(Color.FOREST);
         Gdx.input.setInputProcessor(this);
 
+        delay = new MutableFloat(1f);
         pulseColor = new Color(1f, 1f, 1f, 1f);
         Tween.to(pulseColor, ColorAccessor.A, 0.333f)
-                .target(0.1f)
-                .repeatYoyo(-1, 0f)
-                .start(Assets.tween);
+             .target(0.1f)
+             .repeatYoyo(-1, 0f)
+             .start(Assets.tween);
     }
 
     @Override
@@ -38,7 +43,16 @@ public class MenuScreen extends BaseScreen {
         }
 
         if (Gdx.input.justTouched()) {
-            TrainJam2016.game.screen = new GameScreen();
+            Assets.clickPlay.play(Const.volume * 2f);
+            Tween.to(delay, -1, 1f)
+                    .target(0f)
+                    .setCallback(new TweenCallback() {
+                        @Override
+                        public void onEvent(int i, BaseTween<?> baseTween) {
+                            TrainJam2016.game.screen = new GameScreen();
+                        }
+                    })
+                    .start(Assets.tween);
         }
     }
 

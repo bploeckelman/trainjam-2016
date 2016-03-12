@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -67,6 +68,16 @@ public class Assets {
     public static TextureRegion bowl;
 
     public static Music music;
+    public static Sound rotateCCW;
+    public static Sound rotateCW;
+    public static Sound pickup;
+    public static Sound place;
+    public static Sound drop;
+    public static Sound fall;
+    public static Sound bagSwitch;
+    public static Sound bagFull;
+    public static Sound conveyorLoop;
+    public static Sound clickPlay;
 
     public static void load() {
         if (tween == null) {
@@ -131,6 +142,17 @@ public class Assets {
         music.setLooping(true);
         music.setVolume(0.1f);
         music.play();
+
+        rotateCCW    = Gdx.audio.newSound(Gdx.files.internal("sounds/rotate-ccw.wav"));
+        rotateCW     = Gdx.audio.newSound(Gdx.files.internal("sounds/rotate-cw.wav"));
+        pickup       = Gdx.audio.newSound(Gdx.files.internal("sounds/pickup.wav"));
+        place        = Gdx.audio.newSound(Gdx.files.internal("sounds/place.wav"));
+        drop         = Gdx.audio.newSound(Gdx.files.internal("sounds/drop.wav"));
+        fall         = Gdx.audio.newSound(Gdx.files.internal("sounds/fall.wav"));
+        bagSwitch    = Gdx.audio.newSound(Gdx.files.internal("sounds/bag-switch.wav"));
+        bagFull      = Gdx.audio.newSound(Gdx.files.internal("sounds/bag-full.wav"));
+        clickPlay    = Gdx.audio.newSound(Gdx.files.internal("sounds/click-play.wav"));
+        conveyorLoop = Gdx.audio.newSound(Gdx.files.internal("sounds/conveyor2.wav"));
     }
 
     public static void dispose() {
@@ -156,6 +178,16 @@ public class Assets {
         bowlTexture.dispose();
         conveyorTexture.dispose();
         music.stop();
+        rotateCCW.dispose();
+        rotateCW.dispose();
+        pickup.dispose();
+        place.dispose();
+        drop.dispose();
+        fall.dispose();
+        bagSwitch.dispose();
+        bagFull.dispose();
+        clickPlay.dispose();
+        conveyorLoop.dispose();
     }
 
     private static ShaderProgram compileShaderProgram(FileHandle vertSource, FileHandle fragSource) {

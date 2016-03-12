@@ -23,11 +23,13 @@ public class ItemApple extends Item {
 
     @Override
     public void rotateCCW() {
+        super.rotateCCW();
         angle += 90;
     }
 
     @Override
     public void rotateCW() {
+        super.rotateCW();
         angle -= 90;
     }
 
