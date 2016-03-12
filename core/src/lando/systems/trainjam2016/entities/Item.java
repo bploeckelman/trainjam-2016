@@ -15,8 +15,8 @@ import lando.systems.trainjam2016.utils.accessors.Vector2Accessor;
 public abstract class Item {
 
     public static enum Type {
-        APPLE, SOUP, EGGS, BREAD, MELON, YAM, CEREAL, MILK, BROCCOLI;
-        public static int NUM_TYPES() { return 9; }
+        APPLE, SOUP, EGGS, BREAD, MELON, YAM, CEREAL, MILK, BROCCOLI, GRAPES;
+        public static int NUM_TYPES() { return 10; }
     }
 
     public static Item createNewRandomItem() {
@@ -32,6 +32,7 @@ public abstract class Item {
             case 6: item = new ItemCereal();    break;
             case 7: item = new ItemMilk();      break;
             case 8: item = new ItemBroccoli();  break;
+            case 9: item = new ItemGrapes();    break;
         }
         return item;
     }

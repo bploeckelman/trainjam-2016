@@ -43,6 +43,7 @@ public class Assets {
     public static Texture cerealTexture;
     public static Texture milkTexture;
     public static Texture broccoliTexture;
+    public static Texture grapesTexture;
     public static Texture conveyorTexture;
 
     public static TextureRegion grid;
@@ -57,6 +58,7 @@ public class Assets {
     public static TextureRegion cereal;
     public static TextureRegion milk;
     public static TextureRegion broccoli;
+    public static TextureRegion grapes;
 
     public static void load() {
         if (tween == null) {
@@ -94,6 +96,7 @@ public class Assets {
         cerealTexture = new Texture("cereal.png");
         milkTexture = new Texture("milk.png");
         broccoliTexture = new Texture("broccoli.png");
+        grapesTexture = new Texture("grapes.png");
         conveyorTexture = new Texture("conveyor.png");
         conveyor = new TextureRegion(conveyorTexture);
         bag = new TextureRegion(bagTexture);
@@ -109,6 +112,7 @@ public class Assets {
         cereal = new TextureRegion(cerealTexture);
         milk = new TextureRegion(milkTexture);
         broccoli = new TextureRegion(broccoliTexture);
+        grapes = new TextureRegion(grapesTexture);
     }
 
     public static void dispose() {
@@ -129,6 +133,7 @@ public class Assets {
         cerealTexture.dispose();
         milkTexture.dispose();
         broccoliTexture.dispose();
+        grapesTexture.dispose();
         conveyorTexture.dispose();
     }
 
