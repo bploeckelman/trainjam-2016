@@ -44,7 +44,7 @@ public class MenuScreen extends BaseScreen {
 
         if (Gdx.input.justTouched()) {
             Assets.clickPlay.play(Const.volume * 2f);
-            Tween.to(delay, -1, 1f)
+            Tween.to(delay, -1, 0.5f)
                     .target(0f)
                     .setCallback(new TweenCallback() {
                         @Override
