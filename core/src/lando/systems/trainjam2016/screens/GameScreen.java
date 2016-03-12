@@ -22,6 +22,7 @@ import lando.systems.trainjam2016.utils.Utils;
 public class GameScreen extends BaseScreen {
 
     private static final int NUM_BAGS = 5;
+    private static final int MAX_BAGS = 10;
 
     Bag              activeBag;
     Array<Bag>       bags;
@@ -37,11 +38,16 @@ public class GameScreen extends BaseScreen {
     Vector2          dragDist;
     Color            capacityColor;
     float            currentTime;
+    boolean          gameOver;
+    GameOverOverlay  gameOverOverlay;
 
     public GameScreen() {
         super();
         Utils.glClearColor(Const.bgColor);
         Gdx.input.setInputProcessor(this);
+
+        gameOverOverlay = new GameOverOverlay();
+        gameOver = false;
 
         bags = new Array<Bag>(NUM_BAGS);
         bagTouchRegions = new Array<Rectangle>(NUM_BAGS);
@@ -75,16 +81,23 @@ public class GameScreen extends BaseScreen {
     }
 
     private void replaceBag(Bag bag) {
+        if (bag.getCapacity() == 1f) {
+            Assets.bagFull.play(Const.volume * 3f);
+        } else {
+            Assets.bagSwitch.play(Const.volume * 3f);
+        }
         doneBags.add(bag);
+
+        if (doneBags.size == MAX_BAGS) {
+            gameOver = true;
+            gameOverOverlay.finish(doneBags);
+            return;
+        }
+
         Bag newBag = new Bag();
         if (activeBag == bag) activeBag = newBag;
         for (int i = 0; i < NUM_BAGS; i++) {
             if (bags.get(i) == bag) {
-                if (bag.getCapacity() == 1f) {
-                    Assets.bagFull.play(Const.volume * 3f);
-                } else {
-                    Assets.bagSwitch.play(Const.volume * 3f);
-                }
                 bags.set(i, newBag);
                 conveyor.speedUp();
             }
@@ -98,6 +111,13 @@ public class GameScreen extends BaseScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             TrainJam2016.game.screen = new MenuScreen();
         }
+
+        if (gameOver) return;
+
+        // Just for the testings
+//        if (Gdx.input.justTouched()) {
+//            replaceBag(activeBag);
+//        }
 
         for (int i = 0; i < NUM_BAGS; i++) {
             Bag bag = bags.get(i);
@@ -129,11 +149,6 @@ public class GameScreen extends BaseScreen {
     public void render(SpriteBatch batch) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-//        for (int y = 0; y < camera.viewportHeight; y += Const.cellSize) {
-//            for (int x = 0; x < camera.viewportWidth; x += Const.cellSize) {
-//                batch.draw(Assets.grid, x, y, Const.cellSize, Const.cellSize);
-//            }
-//        }
 
         conveyor.render(batch, false, false);
         for (int i = 0; i < NUM_BAGS; ++i) {
@@ -182,6 +197,11 @@ public class GameScreen extends BaseScreen {
                 selectedItem.renderGhost(batch, ghostPos);
             }
         }
+
+        if (gameOver) {
+            gameOverOverlay.render(batch);
+        }
+
         batch.end();
     }
 

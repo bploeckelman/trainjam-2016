@@ -9,10 +9,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -50,6 +47,9 @@ public class Assets {
     public static Texture bananasTexture;
     public static Texture bowlTexture;
     public static Texture conveyorTexture;
+    public static Texture ninepatchTexture;
+
+    public static NinePatch border;
 
     public static TextureRegion grid;
     public static TextureRegion bag;
@@ -120,6 +120,10 @@ public class Assets {
         bananasTexture = new Texture("bananas.png");
         bowlTexture = new Texture("bowl.png");
         conveyorTexture = new Texture("conveyor.png");
+        ninepatchTexture = new Texture("ninepatch-bg.png");
+
+        border = new NinePatch(ninepatchTexture, 6, 6, 6, 6);
+
         conveyor = new TextureRegion(conveyorTexture);
         bag = new TextureRegion(bagTexture);
         apple = new TextureRegion(appleTexture);
@@ -188,6 +192,7 @@ public class Assets {
         bagFull.dispose();
         clickPlay.dispose();
         conveyorLoop.dispose();
+        ninepatchTexture.dispose();
     }
 
     private static ShaderProgram compileShaderProgram(FileHandle vertSource, FileHandle fragSource) {
