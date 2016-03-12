@@ -17,8 +17,8 @@ public class Bag extends Item {
     public Array<Item> droppingItems;
 
     // Extents for cells that can be filled
-    int minCellX, minCellY;
-    int maxCellX, maxCellY;
+    public int minCellX, minCellY;
+    public int maxCellX, maxCellY;
 
     public Bag() {
         super(Assets.bag);
@@ -37,14 +37,21 @@ public class Bag extends Item {
 
     @Override
     public void update(float dt) {
+        Array<Item> place = new Array<Item>();
+        for (int i = 0; i < droppingItems.size; i++) {
+            Item item = droppingItems.get(i);
+            if (item.canMoveDown(this)) {
+                item.moveToCell(item.cellX, item.cellY - 1);
+            } else {
+                placedItems.add(item);
+                place.add(item);
+            }
+        }
+        droppingItems.removeAll(place, true);
         // TODO: progress dropped items until they are 'placed'
     }
 
-    public void dropItem(Item item) {
-        // TODO: place on dropped item list
-    }
-
-    public boolean placeItem(Item item) {
+    public boolean dropItem(Item item) {
         if (!isInBag(item)) return false;
 
         for (Item placedItem : placedItems) {
@@ -52,8 +59,13 @@ public class Bag extends Item {
                 return false;
             }
         }
+        for (Item placedItem : droppingItems) {
+            if (item.overlaps(placedItem)) {
+                return false;
+            }
+        }
 
-        placedItems.add(item);
+        droppingItems.add(item);
 
         // TODO: fill bag shape with item shape
 

@@ -83,6 +83,35 @@ public abstract class Item {
         return false;
     }
 
+    public boolean canMoveDown (Bag bag) {
+        for (Item item : bag.placedItems) {
+            if (item == this) continue;
+            for (int iy = 0; iy < shape.length; ++iy) {
+                for (int ix = 0; ix < shape[0].length; ++ix) {
+                    if (shape[iy][ix] != 0 && item.isCellInside(cellX + ix, cellY + iy - 1)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        for (Item item : bag.droppingItems) {
+            if (item == this) continue;
+            for (int iy = 0; iy < shape.length; ++iy) {
+                for (int ix = 0; ix < shape[0].length; ++ix) {
+                    if (shape[iy][ix] != 0 && item.isCellInside(cellX + ix, cellY + iy - 1)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        for (int x = bag.minCellX; x <= bag.maxCellX; x++) {
+            if (this.isCellInside(x, bag.minCellY)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean isCellInside(int aCellX, int aCellY) {
         int relX = aCellX - cellX;
         int relY = aCellY - cellY;

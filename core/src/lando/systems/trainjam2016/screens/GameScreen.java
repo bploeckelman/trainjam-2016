@@ -202,7 +202,7 @@ public class GameScreen extends BaseScreen {
                 if (overlaps) {
                     selectedItem.moveToCell(originalCellX, originalCellY);
                 } else {
-                    boolean placed = activeBag.placeItem(selectedItem);
+                    boolean placed = activeBag.dropItem(selectedItem);
                     if (placed) {
                         selectedItem.moveToCell();
                         items.removeValue(selectedItem, true);
