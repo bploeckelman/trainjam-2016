@@ -178,7 +178,7 @@ public class GameScreen extends BaseScreen {
         camera.unproject(firstTouch);
 
         for (Item item : items) {
-            if (item.isPointInside(firstTouch.x, firstTouch.y)) {
+            if (item.isPointInside(firstTouch.x, firstTouch.y, Const.cellSize)) {
                 selectedItem = item;
                 originalCellX = item.cellX;
                 originalCellY = item.cellY;

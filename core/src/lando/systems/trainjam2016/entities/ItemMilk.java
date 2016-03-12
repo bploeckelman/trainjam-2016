@@ -19,14 +19,14 @@ public class ItemMilk extends Item {
             { 0, 1, 1 }
     };
     private static final int[][] shape180 = new int[][] {
-            { 0, 0, 1 },
-            { 0, 1, 1 },
-            { 0, 1, 1 }
+            { 0, 1, 0 },
+            { 1, 1, 0 },
+            { 1, 1, 0 }
     };
     private static final int[][] shape270 = new int[][] {
-            { 0, 0, 0 },
             { 1, 1, 0 },
-            { 1, 1, 1 }
+            { 1, 1, 1 },
+            { 0, 0, 0 }
     };
 
     public ItemMilk() {
@@ -35,7 +35,7 @@ public class ItemMilk extends Item {
 
         offsetCellsX = 1;
         offsetCellsY = 0;
-        originX = Const.cellSize;
+        originX = Const.cellSize * 0.5f;
         originY = Const.cellSize * 1.5f;
     }
 

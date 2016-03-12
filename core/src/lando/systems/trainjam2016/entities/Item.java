@@ -137,7 +137,7 @@ public abstract class Item {
         return true;
     }
 
-    public boolean isPointInside(float pointX, float pointY) {
+    public boolean isPointInside(float pointX, float pointY, float padding) {
         if (shape == null) return false;
 
         // If the specified point is inside at least one cell for this item, then the point is inside the item
@@ -145,10 +145,10 @@ public abstract class Item {
             for (int ix = 0; ix < shape[0].length; ++ix) {
                 if (shape[iy][ix] == 0) continue;
 
-                float minX = (cellX + ix) * Const.cellSize;
-                float minY = (cellY + iy) * Const.cellSize;
-                float maxX = minX + Const.cellSize;
-                float maxY = minY + Const.cellSize;
+                float minX = (cellX + ix) * Const.cellSize - padding;
+                float minY = (cellY + iy) * Const.cellSize - padding;
+                float maxX = minX + padding + Const.cellSize + padding;
+                float maxY = minY + padding + Const.cellSize + padding;
                 if (pointX >= minX && pointX <= maxX
                  && pointY >= minY && pointY <= maxY) {
                     return true;
