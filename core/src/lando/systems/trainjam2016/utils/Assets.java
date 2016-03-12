@@ -3,6 +3,7 @@ package lando.systems.trainjam2016.utils;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -65,6 +66,8 @@ public class Assets {
     public static TextureRegion bananas;
     public static TextureRegion bowl;
 
+    public static Music music;
+
     public static void load() {
         if (tween == null) {
             tween = new TweenManager();
@@ -123,6 +126,11 @@ public class Assets {
         grapes = new TextureRegion(grapesTexture);
         bananas = new TextureRegion(bananasTexture);
         bowl = new TextureRegion(bowlTexture);
+
+        music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.1f);
+        music.play();
     }
 
     public static void dispose() {
@@ -147,6 +155,7 @@ public class Assets {
         bananasTexture.dispose();
         bowlTexture.dispose();
         conveyorTexture.dispose();
+        music.stop();
     }
 
     private static ShaderProgram compileShaderProgram(FileHandle vertSource, FileHandle fragSource) {
