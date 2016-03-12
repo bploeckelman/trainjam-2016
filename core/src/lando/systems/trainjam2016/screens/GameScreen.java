@@ -80,6 +80,11 @@ public class GameScreen extends BaseScreen {
         if (activeBag == bag) activeBag = newBag;
         for (int i = 0; i < NUM_BAGS; i++) {
             if (bags.get(i) == bag) {
+                if (bag.getCapacity() == 1f) {
+                    Assets.bagFull.play(Const.volume * 3f);
+                } else {
+                    Assets.bagSwitch.play(Const.volume * 3f);
+                }
                 bags.set(i, newBag);
             }
         }
