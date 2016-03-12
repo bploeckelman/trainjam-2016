@@ -190,11 +190,6 @@ public abstract class Item {
     }
 
     public void render(SpriteBatch batch, boolean isOverBag, boolean canPlaceInBag) {
-        float width  = texture.getRegionWidth();
-        float height = texture.getRegionHeight();
-
-        batch.draw(texture, pos.x + offsetCellsX * Const.cellSize, pos.y + offsetCellsY * Const.cellSize, originX, originY, width, height, 1f, 1f, angle);
-
         if (isOverBag) {
             for (int y = 0; y < shape.length; ++y) {
                 for (int x = 0; x < shape[0].length; ++x) {
@@ -211,6 +206,11 @@ public abstract class Item {
             }
         }
         batch.setColor(1f, 1f, 1f, 1f);
+
+        float width  = texture.getRegionWidth();
+        float height = texture.getRegionHeight();
+
+        batch.draw(texture, pos.x + offsetCellsX * Const.cellSize, pos.y + offsetCellsY * Const.cellSize, originX, originY, width, height, 1f, 1f, angle);
     }
 
     public void renderGhost(SpriteBatch batch, Vector2 origPos) {
