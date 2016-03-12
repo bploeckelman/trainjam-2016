@@ -15,8 +15,25 @@ import lando.systems.trainjam2016.utils.accessors.Vector2Accessor;
 public abstract class Item {
 
     public static enum Type {
-        APPLE, SOUP, EGGS, BREAD, MELON, YAM, CEREAL, MILK;
-        public static int NUM_TYPES() { return 8; }
+        APPLE, SOUP, EGGS, BREAD, MELON, YAM, CEREAL, MILK, BROCCOLI;
+        public static int NUM_TYPES() { return 9; }
+    }
+
+    public static Item createNewRandomItem() {
+        Item item;
+        switch (MathUtils.random(Type.NUM_TYPES() - 1)) {
+            default:
+            case 0: item = new ItemApple();     break;
+            case 1: item = new ItemSoup();      break;
+            case 2: item = new ItemEggs();      break;
+            case 3: item = new ItemBread();     break;
+            case 4: item = new ItemMelon();     break;
+            case 5: item = new ItemYam();       break;
+            case 6: item = new ItemCereal();    break;
+            case 7: item = new ItemMilk();      break;
+            case 8: item = new ItemBroccoli();  break;
+        }
+        return item;
     }
 
     public Vector2 pos;
@@ -46,22 +63,6 @@ public abstract class Item {
     public abstract void rotateCW();
 
     public void update(float dt) {}
-
-    public static Item createNewRandomItem() {
-        Item item;
-        switch (MathUtils.random(Type.NUM_TYPES() - 1)) {
-            default:
-            case 0: item = new ItemApple(); break;
-            case 1: item = new ItemSoup();  break;
-            case 2: item = new ItemEggs();  break;
-            case 3: item = new ItemBread();  break;
-            case 4: item = new ItemMelon();  break;
-            case 5: item = new ItemYam();  break;
-            case 6: item = new ItemCereal();  break;
-            case 7: item = new ItemMilk();  break;
-        }
-        return item;
-    }
 
     public void moveToCell() {
         Tween.to(pos, Vector2Accessor.XY, 0.1f)
