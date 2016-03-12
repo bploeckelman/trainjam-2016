@@ -25,6 +25,7 @@ public class GameScreen extends BaseScreen {
 
     Bag              activeBag;
     Array<Bag>       bags;
+    Array<Bag>       doneBags;
     Array<Rectangle> bagTouchRegions;
     Array<Item>      items;
     Item             selectedItem;
@@ -57,6 +58,7 @@ public class GameScreen extends BaseScreen {
             bagTouchCellY += 4;
         }
         activeBag = bags.first();
+        doneBags = new Array<Bag>();
 
         items = new Array<Item>();
         Item yam = new ItemYam();
@@ -72,6 +74,17 @@ public class GameScreen extends BaseScreen {
         capacityColor = new Color(1f, 0f, 0f, 1f);
     }
 
+    private void replaceBag(Bag bag) {
+        doneBags.add(bag);
+        Bag newBag = new Bag();
+        if (activeBag == bag) activeBag = newBag;
+        for (int i = 0; i < NUM_BAGS; i++) {
+            if (bags.get(i) == bag) {
+                bags.set(i, newBag);
+            }
+        }
+    }
+
     @Override
     public void update(float dt) {
         currentTime += dt;
@@ -80,12 +93,25 @@ public class GameScreen extends BaseScreen {
             TrainJam2016.game.screen = new MenuScreen();
         }
 
+        for (int i = 0; i < NUM_BAGS; i++) {
+            Bag bag = bags.get(i);
+            if (bag.getCapacity() >= 1f) replaceBag(bag);
+        }
+
         for (Item item : items) {
             item.update(dt);
             if (item != selectedItem && !activeBag.isInBag(item)) {
                 Vector2 conveyorPos = conveyor.getItemPosition(item);
                 if (conveyorPos != null) {
                     item.moveCornerTo(conveyorPos.x, conveyorPos.y);
+                } else {
+                    while (!activeBag.cramItem(item)) replaceBag(activeBag);
+                    items.removeValue(item, true);
+
+                    Item newItem = Item.createNewRandomItem();
+                    newItem.setConveyorTime(currentTime);
+                    newItem.moveToCell(MathUtils.random(1, 10), MathUtils.random(1, 10));
+                    items.add(newItem);
                 }
             }
         }

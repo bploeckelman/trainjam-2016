@@ -72,6 +72,12 @@ public class Bag extends Item {
         return true;
     }
 
+    public boolean cramItem(Item item) {
+        item.moveToCell();
+        while (item.canMoveDown(this)) item.moveToCell(item.cellX, item.cellY - 1);
+        return dropItem(item);
+    }
+
     public boolean isInBag(Item item) {
         return item.isInsideCellRegion(minCellX, minCellY, maxCellX, maxCellY);
     }
