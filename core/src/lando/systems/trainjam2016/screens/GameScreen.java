@@ -59,9 +59,9 @@ public class GameScreen extends BaseScreen {
         activeBag = bags.first();
 
         items = new Array<Item>();
-        Item yam = new ItemYam();
-        yam.setConveyorTime(2);
-        items.add(yam);
+        Item cereal = new ItemCereal();
+        cereal.setConveyorTime(2);
+        items.add(cereal);
 
         conveyor = new Conveyor();
 
