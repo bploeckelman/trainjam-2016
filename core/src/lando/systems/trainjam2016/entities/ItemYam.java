@@ -14,14 +14,14 @@ public class ItemYam extends Item {
             { 1, 0, 0 }
     };
     private static final int[][] shape90 = new int[][] {
-            { 0, 0, 0 },
             { 1, 1, 0 },
-            { 0, 1, 1 }
+            { 0, 1, 1 },
+            { 0, 0, 0 }
     };
     private static final int[][] shape180 = new int[][] {
-            { 0, 1, 0 },
-            { 1, 1, 0 },
-            { 1, 0, 0 }
+            { 0, 0, 1 },
+            { 0, 1, 1 },
+            { 0, 1, 0 }
     };
     private static final int[][] shape270 = new int[][] {
             { 0, 0, 0 },
