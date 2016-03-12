@@ -3,6 +3,7 @@
 <module rename-to="html">
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 	<inherits name='com.badlogic.gdx.controllers.controllers-gwt' />
+	<inherits name='aurelienribon.tweenengine'/>
 
 	<inherits name='TrainJam2016' />
 	<entry-point class='lando.systems.trainjam2016.client.HtmlLauncher' />
