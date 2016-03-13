@@ -41,12 +41,14 @@ public class GameScreen extends BaseScreen {
     float            timeOfNextItem;
     boolean          gameOver;
     GameOverOverlay  gameOverOverlay;
+    InstructionsOverlay instructionsOverlay;
 
     public GameScreen() {
         super();
         Utils.glClearColor(Const.bgColor);
         Gdx.input.setInputProcessor(this);
 
+        instructionsOverlay = new InstructionsOverlay();
         gameOverOverlay = new GameOverOverlay();
         gameOver = false;
 
@@ -113,6 +115,14 @@ public class GameScreen extends BaseScreen {
         }
 
         if (gameOver) return;
+        if (instructionsOverlay.show) {
+            boolean ready = instructionsOverlay.update(dt);
+            if (ready ){
+                currentTime = 0;
+                timeOfNextItem = 0;
+            }
+            return;
+        }
 
         // Just for the testings
 //        if (Gdx.input.justTouched()) {
@@ -157,6 +167,10 @@ public class GameScreen extends BaseScreen {
     public void render(SpriteBatch batch) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+
+        batch.setColor(0.8f, 0.8f, 0.8f, 1f);
+        batch.draw(Assets.backgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);
+        batch.setColor(1f, 1f, 1f, 1f);
 
         conveyor.render(batch, false, false);
         for (int i = 0; i < NUM_BAGS; ++i) {
@@ -204,6 +218,10 @@ public class GameScreen extends BaseScreen {
             if (ghostPos != null) {
                 selectedItem.renderGhost(batch, ghostPos);
             }
+        }
+
+        if (instructionsOverlay.show) {
+            instructionsOverlay.render(batch);
         }
 
         if (gameOver) {

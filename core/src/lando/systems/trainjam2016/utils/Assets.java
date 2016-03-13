@@ -30,6 +30,7 @@ public class Assets {
     public static Texture whitePixelTexture;
     public static Texture whiteCircleTexture;
     public static Texture testTexture;
+    public static Texture backgroundTexture;
     public static Texture gridTexture;
     public static Texture bagTexture;
     public static Texture bagSmallTexture;
@@ -102,6 +103,7 @@ public class Assets {
         testTexture = new Texture("badlogic.jpg");
         whitePixelTexture = new Texture("white-pixel.png");
         whiteCircleTexture = new Texture("white-circle.png");
+        backgroundTexture = new Texture("background.jpg");
         gridTexture = new Texture("grid.png");
         gridTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         grid = new TextureRegion(gridTexture);
@@ -169,6 +171,7 @@ public class Assets {
         testTexture.dispose();
         whitePixelTexture.dispose();
         whiteCircleTexture.dispose();
+        backgroundTexture.dispose();
         bagTexture.dispose();
         bagGridTexture.dispose();
         appleTexture.dispose();
